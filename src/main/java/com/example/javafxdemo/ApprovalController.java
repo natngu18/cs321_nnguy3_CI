@@ -2,47 +2,65 @@ package com.example.javafxdemo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApprovalController {
+    // Form Fields
     @FXML
     private TextField immigrantId;
     @FXML
     private TextField requesterName;
     @FXML
     private TextField requesterEmail;
-    // Business Object passed to Controller.
-    private GeneaologyRequestApproval request;
     // multi-select menu for forms
     @FXML
     private ListView<String> multiSelectFormList;
+
+    // Business Object passed to ApprovalController from ReviewController.
+    private GeneaologyRequestApproval request;
+
+    public ApprovalController() {}
+
+    // Constructor to set value for business object.
     public ApprovalController(GeneaologyRequestApproval request) {
         this.request = request;
     }
+
+    // initialize() function is automatically called upon creation of controller.
     public void initialize() {
-        // Pre-populate the form fields based on the Business object
+        // Pre-populate the form fields based on the Business object, if its not null
         if (request != null) {
             immigrantId.setText(String.valueOf(request.getImmigrantId()));
             requesterName.setText(String.valueOf(request.getRequester().getName()));
             requesterEmail.setText(String.valueOf(request.getRequester().getEmail()));
+            // Populate selected forms from review screen.
+            for (Form form : request.getRequestedForms()) {
+                String formName = form.getFormName();
+                // set selected form
+                multiSelectFormList.getSelectionModel().select(formName);
+            }
         }
-        // TODO: populate selected forms.
-        // Set selection mode to multiple (need to ctrl+click to select multiple)
+        // Set selection mode of forms to multiple (need to ctrl+click to select multiple)
         multiSelectFormList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        // This list should be populated with all possible forms
+        // Populate options of forms to choose from
         ObservableList<String> forms = FXCollections.observableArrayList("Form 1", "Form 2", "Form 3");
         multiSelectFormList.setItems(forms);
+
+
     }
 
-    public void submitButtonAction() throws IOException {
+    public void submitButtonAction(ActionEvent actionEvent) throws IOException {
         // Approval doesn't have to do verification checks.
 
         ObservableList<String> selectedForms = multiSelectFormList.getSelectionModel().getSelectedItems();
@@ -71,29 +89,20 @@ public class ApprovalController {
         alert.setContentText("Submit successful!");
         alert.showAndWait();
 
-        // Load the second GUI FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SecondView.fxml"));
-        Parent secondView = loader.load();
-
-        // Get the controller instance
-        SecondController secondController = loader.getController();
-
-        // Pass data to the second controller
-        secondController.setImmigrantId("Hello from the first view!");
-
-        // Create a new scene with the second GUI
-        Scene secondScene = new Scene(secondView);
-        // Get the stage from the current button
-        Stage currentStage = (Stage) multiSelectFormList.getScene().getWindow();
-        // Set the new scene
-        currentStage.setScene(secondScene);
-
-        // TODO: This works. Now set up controllers for Data Entry and Edit. Approval should not be able to edit.
-        // TODO: Check if this works on VS code on my laptop
+//        // TODO:  Approval should not be able to edit.
     }
 
-    public void cancelButtonAction() {
-        // TODO: Edit/Cancel Button, should go back to edit screen.
+    public void cancelButtonAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("review.fxml"));
+        Parent reviewView = loader.load();
+        // new scene for Review screen
+        Scene secondScene = new Scene(reviewView, 720, 1080);
+        // Get the stage from the current button
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        // Change title
+        currentStage.setTitle("Review");
+        // Set the new scene
+        currentStage.setScene(secondScene);
     }
 
 }

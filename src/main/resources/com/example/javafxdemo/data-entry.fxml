@@ -9,10 +9,13 @@
 
 
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.javafxdemo.SecondController">
+      fx:controller="com.example.javafxdemo.DataEntryController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label text="Second View" />
-    <TextField fx:id="immigrantId" promptText="Enter immigrant id" />
+    <Label text="Example text field:" />
+    <TextField fx:id="exampleTextField" promptText="This is example text field" />
+
+    <Button text="Go to review" onAction="#switchToReviewScreen" />
+    <Button text="Print example text field to terminal" onAction="#printExampleTextField" />
 </VBox>
