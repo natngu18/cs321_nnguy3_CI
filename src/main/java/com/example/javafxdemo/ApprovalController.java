@@ -96,7 +96,7 @@ public class ApprovalController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("review.fxml"));
         Parent reviewView = loader.load();
         // new scene for Review screen
-        Scene secondScene = new Scene(reviewView, 720, 1080);
+        Scene secondScene = new Scene(reviewView, 720, 720);
         // Get the stage from the current button
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         // Change title

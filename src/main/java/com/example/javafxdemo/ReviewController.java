@@ -56,7 +56,7 @@ public class ReviewController {
         //          -see how data is passed from Review screen to Approval screen below
 
         // new scene for Data Entry screen
-        Scene secondScene = new Scene(reviewView, 720, 1080);
+        Scene secondScene = new Scene(reviewView, 720, 720);
         // Get the stage from the current button
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         // Change title
@@ -84,7 +84,7 @@ public class ReviewController {
 
         Parent reviewView = loader.load();
         // new scene for Approval screen
-        Scene secondScene = new Scene(reviewView, 720, 1080);
+        Scene secondScene = new Scene(reviewView, 720, 720);
         // Get the stage from the current button
         Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         // Change title
