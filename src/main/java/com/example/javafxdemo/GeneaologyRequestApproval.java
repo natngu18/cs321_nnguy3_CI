@@ -160,19 +160,22 @@ public class GeneaologyRequestApproval {
 //        this.immigrantId = immigrantId;
 //    }
 //
-//    public void submitRequest() {
-//        // this.status = "Submitted";
-//    }
-//
-//    public void cancelRequest() {
-//        // this.status = "Canceled";
-//        // send back to reviewer
-//    }
-//
+    public void submitRequest() {
+        // this.status = "Submitted";
+    }
+
+    public void sendEmail() {
+
+    }
+    public void cancelRequest() {
+        // this.status = "Canceled";
+        // send back to reviewer
+    }
+
 //    // Used to access database to retrieve forms with matching ids.
-//    public List<Form> findFormsByIds(List<Integer> listOfFormIds) {
-//        return List.of(new Form(1, "test", "test"));
-//    }
+    public List<Form> findFormsByIds(List<Integer> listOfFormIds) {
+        return List.of(new Form(1, "test", "test"));
+    }
 
     // Used to access database to retrieve immigrant with matching id.
 

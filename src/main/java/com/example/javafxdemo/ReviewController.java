@@ -70,9 +70,28 @@ public class ReviewController {
 
     // empty constructor is required
     public ReviewController() { }
+    private GeneaologyRequestApproval request;
 
+
+    // Constructor to set value for business object.
+    public ReviewController(GeneaologyRequestApproval request) {
+        this.request = request;
+    }
     // initialize() function is automatically called upon creation of controller. (May not need it)
-    public void initialize() { }
+    public void initialize() {
+        if (request != null) {
+            citizenNameLabel.setText(request.getCitizenName());
+            citizenIDLabel.setText(String.valueOf(request.getCitizenId()));
+            immigrantNameLabel.setText(request.getImmigrantName());
+            immigrantIDLabel.setText(String.valueOf(request.getImmigrantId()));
+            formIDLabel.setText(String.valueOf(request.getFormId()));
+            formDescriptionLabel.setText(request.getFormDescription());
+            reviewerIDField.setText(String.valueOf(request.getReviewerId()));
+            birthCountryField.setText(request.getBirthCountry());
+            dateOfBirthField.setText(request.getDateOfBirth());
+            dateOfDeathField.setText(request.getDateOfDeath());
+        }
+    }
 
     /**
      * Setter method for the citizenNameLabel data that was initially given in data entry.
@@ -390,20 +409,21 @@ public class ReviewController {
             dateOfBirthField.getText(),
             dateOfDeathField.getText()
     );
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("approval.fxml"));
-
-        // passing business object created above to ApprovalController/ approval screen
-        loader.setControllerFactory(param -> new ApprovalController(passedRequest));
-
-        Parent reviewView = loader.load();
-        // new scene for Approval screen
-        Scene secondScene = new Scene(reviewView, 720, 720);
-        // Get the stage from the current button
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        // Change title
-        currentStage.setTitle("Approval");
-        // Set the new scene
-        currentStage.setScene(secondScene);
+        WorkflowItem.loadFXML(actionEvent, "approval", passedRequest);
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("approval.fxml"));
+//
+//        // passing business object created above to ApprovalController/ approval screen
+//        loader.setControllerFactory(param -> new ApprovalController(passedRequest));
+//
+//        Parent reviewView = loader.load();
+//        // new scene for Approval screen
+//        Scene secondScene = new Scene(reviewView, 720, 720);
+//        // Get the stage from the current button
+//        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//        // Change title
+//        currentStage.setTitle("Approval");
+//        // Set the new scene
+//        currentStage.setScene(secondScene);
     }
 
     /**
