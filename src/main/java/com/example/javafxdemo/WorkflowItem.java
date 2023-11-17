@@ -41,7 +41,8 @@ public class WorkflowItem {
                 loader.setControllerFactory(param -> new ApprovalController(req));
             } else if (step.equalsIgnoreCase("review")) {
                 loader.setControllerFactory(param -> new ReviewController(req));
-
+            } else {
+                loader.setControllerFactory(param -> new DataEntryController(req));
             }
 
             Parent newView = loader.load();

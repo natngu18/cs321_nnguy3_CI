@@ -354,28 +354,8 @@ public class ReviewController {
     // Called when button to switch to data entry screen is pressed.
     // May need to do additional things to pass data entered in review screen back to the data-entry screen.
     public void switchToDataEntryScreen(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("data-entry.fxml"));
-        Parent reviewView = loader.load();
-
-        // Pass data here.
-        // Multiple ways to pass data to Data-entry screen:
-        // 1. Calling a function defined in DataEntryController:
-        //        // Get the controller instance
-        //        DataEntryController controller = loader.getController();
-        //
-        //        // Pass data to the second controller by calling function defined in DataEntryController
-        //        controller.setImmigrantId("example");
-        // 2. If DataEntryController has business object defined in its class and an initialize() function which sets its fields based on the passed object
-        //          -see how data is passed from Review screen to Approval screen below
-
-        // new scene for Data Entry screen
-        Scene secondScene = new Scene(reviewView, 720, 720);
-        // Get the stage from the current button
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        // Change title
-        currentStage.setTitle("Data Entry");
-        // Set the new scene
-        currentStage.setScene(secondScene);
+        WorkflowItem workflowItem = new WorkflowItem("data-entry", this.request);
+        workflowItem.loadFXML(actionEvent);
     }
 
     // Called when button to switch to approval screen is pressed.
@@ -396,7 +376,7 @@ public class ReviewController {
         //This gets printed when the Reviewer clicks the go to approval button.
         System.out.println("Request is now sent to Approval");
 
-            GeneaologyRequest passedRequest = new GeneaologyRequest(
+        GeneaologyRequest passedRequest = new GeneaologyRequest(
             citizenNameLabel.getText(),
             Integer.parseInt(citizenIDLabel.getText()),
             immigrantNameLabel.getText(),
@@ -407,7 +387,7 @@ public class ReviewController {
             birthCountryField.getText(),
             dateOfBirthField.getText(),
             dateOfDeathField.getText()
-    );
+        );
 
         WorkflowItem workflowItem = new WorkflowItem("approval", passedRequest);
         workflowItem.loadFXML(actionEvent);

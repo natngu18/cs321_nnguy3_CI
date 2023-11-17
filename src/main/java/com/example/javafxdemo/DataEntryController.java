@@ -29,12 +29,28 @@ public class DataEntryController {
 
 
 
+    private GeneaologyRequest request;
     // empty constructor is required
-    public DataEntryController() { }
+
+    public DataEntryController() {}
+
+    // Constructor to set value for business object.
+    public DataEntryController(GeneaologyRequest request) {
+        this.request = request;
+    }
 
     // initialize() function is automatically called upon creation of controller. (May not need it)
     public void initialize() {
         errorMessageLabel.setText("");
+
+        if (request != null) {
+            citizenNameField.setText(request.getCitizenName());
+            citizenIDField.setText(String.valueOf(request.getCitizenId()));
+            immigrantNameField.setText(request.getImmigrantName());
+            immigrantIDField.setText(String.valueOf(request.getImmigrantId()));
+            formIDField.setText(String.valueOf(request.getFormId()));
+            formDescriptionField.setText(request.getFormDescription());
+        }
     }
 
     // Function to demonstrate how to read inputted text into the example text field when button is pressed.
@@ -71,18 +87,28 @@ public class DataEntryController {
 
         ReviewController reviewController = loader.getController();
 
-        //Set up data for the review portion
-        reviewController.setCitizenName(citizenName);
-        reviewController.setCitizenID(citizenID);
-        reviewController.setImmigrantID(immigrantID);
-        reviewController.setImmigrantName(immigrantName);
-        reviewController.setFormID(formID);
-        reviewController.setFormDescription(formDescription);
+//        //Set up data for the review portion
+//        reviewController.setCitizenName(citizenName);
+//        reviewController.setCitizenID(citizenID);
+//        reviewController.setImmigrantID(immigrantID);
+//        reviewController.setImmigrantName(immigrantName);
+//        reviewController.setFormID(formID);
+//        reviewController.setFormDescription(formDescription);
         //Basic validation that all fields are filled, will not continue to review if missing data
         if (citizenName.isEmpty() || citizenID.isEmpty() || immigrantID.isEmpty() || formID.isEmpty() ||formDescription.isEmpty()|| immigrantName.isEmpty()) {
             errorMessageLabel.setText("Error: Please ensure all fields are filled");
         } else {
             errorMessageLabel.setText("");
+            GeneaologyRequest passedRequest = new GeneaologyRequest(
+                    citizenNameField.getText(),
+                    Integer.parseInt(citizenIDField.getText()),
+                    immigrantNameField.getText(),
+                    Integer.parseInt(immigrantIDField.getText()),
+                    Integer.parseInt(formIDField.getText()),
+                    formDescriptionField.getText()
+            );
+            WorkflowItem workflowItem = new WorkflowItem("review", passedRequest);
+            workflowItem.loadFXML(actionEvent);
             //
             //        // Pass data to the second controller by calling function defined in ReviewController
             //        reviewController.setImmigrantId("example");
@@ -90,13 +116,13 @@ public class DataEntryController {
             //          -see how data is passed from Review screen to Approval screen
 
             // new scene for Review screen
-            Scene secondScene = new Scene(reviewView, 720, 720);
-            // Get the stage from the current button
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            // Change title
-            currentStage.setTitle("Review");
-            // Set the new scene
-            currentStage.setScene(secondScene);
+//            Scene secondScene = new Scene(reviewView, 720, 720);
+//            // Get the stage from the current button
+//            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//            // Change title
+//            currentStage.setTitle("Review");
+//            // Set the new scene
+//            currentStage.setScene(secondScene);
         }
     }
 }

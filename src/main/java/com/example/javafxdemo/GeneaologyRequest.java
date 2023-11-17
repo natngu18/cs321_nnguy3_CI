@@ -17,6 +17,16 @@ public class GeneaologyRequest {
         this.dateOfDeath = dateOfDeath;
     }
 
+    public GeneaologyRequest(String citizenName, int citizenId, String immigrantName, int immigrantId, int formId, String formDescription) {
+        this.citizenName = citizenName;
+        this.citizenId = citizenId;
+        this.immigrantName = immigrantName;
+        this.immigrantId = immigrantId;
+        this.formId = formId;
+        this.formDescription = formDescription;
+
+    }
+
     private String citizenName;
 
 
@@ -109,51 +119,9 @@ public class GeneaologyRequest {
         this.dateOfDeath = dateOfDeath;
     }
 
-
-
-//    private int requestId;
-//    private Citizen requester;
-//    private List<Form> requestedForms;
-//    private String status = "Pending";
-//    private int immigrantId;
-//
     public GeneaologyRequest() {
     }
-//    public GeneaologyRequest(int requestId, Citizen requester, List<Form> requestedForms, String status, int immigrantId) {
-//        this.requestId = requestId;
-//        this.requestedForms = requestedForms;
-//        this.status = status;
-//        this.immigrantId = immigrantId;
-//        this.requester = requester;
-//    }
-//    public Citizen getRequester(){
-//        return requester;
-//    }
-//    public int getRequestId() {
-//        return requestId;
-//    }
-//    public void setRequestId(int requestId) {
-//        this.requestId = requestId;
-//    }
-//    public List<Form> getRequestedForms() {
-//        return requestedForms;
-//    }
-//    public void setRequestedForms(List<Form> requestedForms) {
-//        this.requestedForms = requestedForms;
-//    }
-//    public String getStatus() {
-//        return status;
-//    }
-//    public void setStatus(String status) {
-//        this.status = status;
-//    }
-//    public int getImmigrantId() {
-//        return immigrantId;
-//    }
-//    public void setImmigrantId(int immigrantId) {
-//        this.immigrantId = immigrantId;
-//    }
-//
+
     public void submitRequest() {
         // this.status = "Submitted";
     }
