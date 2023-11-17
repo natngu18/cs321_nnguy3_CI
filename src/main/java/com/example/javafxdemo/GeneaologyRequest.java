@@ -1,16 +1,10 @@
 package com.example.javafxdemo;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
 import java.util.List;
 
-public class GeneaologyRequestApproval {
+public class GeneaologyRequest {
 
-    public GeneaologyRequestApproval(String citizenName, int citizenId, String immigrantName, int immigrantId, int formId, String formDescription, int reviewerId, String birthCountry, String dateOfBirth, String dateOfDeath) {
+    public GeneaologyRequest(String citizenName, int citizenId, String immigrantName, int immigrantId, int formId, String formDescription, int reviewerId, String birthCountry, String dateOfBirth, String dateOfDeath) {
         this.citizenName = citizenName;
         this.citizenId = citizenId;
         this.immigrantName = immigrantName;
@@ -123,9 +117,9 @@ public class GeneaologyRequestApproval {
 //    private String status = "Pending";
 //    private int immigrantId;
 //
-    public GeneaologyRequestApproval() {
+    public GeneaologyRequest() {
     }
-//    public GeneaologyRequestApproval(int requestId, Citizen requester, List<Form> requestedForms, String status, int immigrantId) {
+//    public GeneaologyRequest(int requestId, Citizen requester, List<Form> requestedForms, String status, int immigrantId) {
 //        this.requestId = requestId;
 //        this.requestedForms = requestedForms;
 //        this.status = status;

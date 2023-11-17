@@ -10,7 +10,31 @@ import java.io.IOException;
 
 
 public class WorkflowItem {
-    public static void loadFXML(ActionEvent actionEvent, String step, GeneaologyRequestApproval req) throws IOException {
+    public String getStep() {
+        return step;
+    }
+
+    public void setStep(String step) {
+        this.step = step;
+    }
+
+    public GeneaologyRequest getReq() {
+        return req;
+    }
+
+    public void setReq(GeneaologyRequest req) {
+        this.req = req;
+    }
+
+    public WorkflowItem(String step, GeneaologyRequest req) {
+        this.step = step;
+        this.req = req;
+    }
+
+    private String step;
+    private GeneaologyRequest req;
+
+    public void loadFXML(ActionEvent actionEvent) throws IOException {
             FXMLLoader loader = new FXMLLoader(WorkflowItem.class.getResource(step.toLowerCase() + ".fxml"));
 
             if (step.equalsIgnoreCase("approval")) {

@@ -1,19 +1,10 @@
 package com.example.javafxdemo;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ApprovalController {
     // Form Fields
@@ -39,12 +30,12 @@ public class ApprovalController {
     @FXML private Label dateOfDeathField;
 
     // Business Object passed to ApprovalController from ReviewController.
-    private GeneaologyRequestApproval request;
+    private GeneaologyRequest request;
 
     public ApprovalController() {}
 
     // Constructor to set value for business object.
-    public ApprovalController(GeneaologyRequestApproval request) {
+    public ApprovalController(GeneaologyRequest request) {
         this.request = request;
     }
 
@@ -78,7 +69,9 @@ public class ApprovalController {
     }
 
     public void cancelButtonAction(ActionEvent actionEvent) throws IOException {
-        WorkflowItem.loadFXML(actionEvent, "review", this.request);
+        WorkflowItem workflowItem = new WorkflowItem("review", this.request);
+        workflowItem.loadFXML(actionEvent);
+//        WorkflowItem.loadFXML(actionEvent, "review", this.request);
 
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("review.fxml"));
 //        Parent reviewView = loader.load();
@@ -94,7 +87,7 @@ public class ApprovalController {
 //        // Set the new scene
 //        currentStage.setScene(secondScene);
     }
-//    GeneaologyRequestApproval passedRequest = new GeneaologyRequestApproval(
+//    GeneaologyRequest passedRequest = new GeneaologyRequest(
 //            citizenNameLabel.getText(),
 //            Integer.parseInt(citizenIDLabel.getText()),
 //            immigrantNameLabel.getText(),
