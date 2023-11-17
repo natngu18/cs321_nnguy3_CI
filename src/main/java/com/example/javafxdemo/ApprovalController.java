@@ -70,7 +70,7 @@ public class ApprovalController {
 
     public void cancelButtonAction(ActionEvent actionEvent) throws IOException {
         WorkflowItem workflowItem = new WorkflowItem("review", this.request);
-        workflowItem.loadFXML(actionEvent);
+        workflowItem.loadNextScreen(actionEvent);
 //        WorkflowItem.loadFXML(actionEvent, "review", this.request);
 
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("review.fxml"));

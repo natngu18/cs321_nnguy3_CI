@@ -2,13 +2,8 @@ package com.example.javafxdemo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -355,7 +350,7 @@ public class ReviewController {
     // May need to do additional things to pass data entered in review screen back to the data-entry screen.
     public void switchToDataEntryScreen(ActionEvent actionEvent) throws IOException {
         WorkflowItem workflowItem = new WorkflowItem("data-entry", this.request);
-        workflowItem.loadFXML(actionEvent);
+        workflowItem.loadNextScreen(actionEvent);
     }
 
     // Called when button to switch to approval screen is pressed.
@@ -390,7 +385,7 @@ public class ReviewController {
         );
 
         WorkflowItem workflowItem = new WorkflowItem("approval", passedRequest);
-        workflowItem.loadFXML(actionEvent);
+        workflowItem.loadNextScreen(actionEvent);
     }
 
     /**

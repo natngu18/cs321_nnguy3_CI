@@ -34,7 +34,7 @@ public class WorkflowItem {
     private String step;
     private GeneaologyRequest req;
 
-    public void loadFXML(ActionEvent actionEvent) throws IOException {
+    public void loadNextScreen(ActionEvent actionEvent) throws IOException {
             FXMLLoader loader = new FXMLLoader(WorkflowItem.class.getResource(step.toLowerCase() + ".fxml"));
 
             if (step.equalsIgnoreCase("approval")) {
