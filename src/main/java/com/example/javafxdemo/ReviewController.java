@@ -49,6 +49,18 @@ public class ReviewController {
 
     @FXML private TextField dateOfDeathField;
 
+    
+    /**
+     * These are boolean flags to ensure the buttons for the next step do not execute if
+     * the current step gives an invalid output.
+     */
+    private boolean supplementalCheckPassed = false;
+    
+    private boolean dataValidationPassed = false;
+
+    private boolean updateSuccessful = false;
+
+
     /**
      * This variable is used for storing the current form details and edits
      * made from the Reviewer.
@@ -147,25 +159,38 @@ public class ReviewController {
      */
     public void performSupplementalChecks() {
         
-        //immigrant ID AND form ID must be at least 6 characters for a valid ID number.
+        //Valid input only if both IDs are at least 6 characters
         if (immigrantIDLabel.getText().length() >= 6 && formIDLabel.getText().length() >= 6) {
+            
+            //Enable next button on screen to execute
+            supplementalCheckPassed = true;
             
             System.out.println("Yes, data entry is valid");
         
         } else {
             
-            //If one or both IDs are invalid, user must go back to the data-entry screen and input valid IDs
+            //Since current step failed, next button should not execute
+            supplementalCheckPassed = false;
+            
             System.out.println("Supplemental checks are not passed due to invalid Form ID or Immigrant ID, please go back to data entry");
         
         }
-            
+    
     }
 
     /**
      * This method will display the current form data which was inputted in the data-entry screen.
      */
     public void displayCurrentFormData() {
-        
+
+        //boolean check to make sure next button is not executed if current step is invalid
+        if (!supplementalCheckPassed) {
+            
+            System.out.println("Cannot display form data: Supplemental checks have not been passed.");
+            
+            return;
+        }
+
         System.out.println("Displaying current form data: ");
         
         //null checks
@@ -200,6 +225,15 @@ public class ReviewController {
      * This method saves the additional fields that the Reviewer inputs into a variable.
      */
     public void saveEdits() {
+
+        //boolean check
+        if (!supplementalCheckPassed) {
+            
+            System.out.println("Cannot save edits: Supplemental checks have not been passed.");
+            
+            return;
+        
+        }
         
         updateFormString();
         
@@ -211,14 +245,27 @@ public class ReviewController {
      * This method validates the Reviewer's edits.
      */
     public void validateData() {
+
+        //boolean check
+        if (!supplementalCheckPassed) {
+            
+            System.out.println("Cannot validate data: Supplemental checks have not been passed.");
+            
+            return;
+        
+        }
         
         //All three fields must not be empty in order for the edits to be valid.
         if (!birthCountryField.getText().isEmpty() && !dateOfBirthField.getText().isEmpty() && !dateOfDeathField.getText().isEmpty()) {
             
+            dataValidationPassed = true;
+
             System.out.println("Data is valid");
         
         } else {
             
+            dataValidationPassed = false;
+
             //At least one of the Reviewer's edits is empty
             System.out.println("Data Validation failed, please correct edits");
         
@@ -230,6 +277,15 @@ public class ReviewController {
      * This method will display the fully edited form.
      */
     public void displayEditedForm() {
+
+        //boolean check
+        if (!supplementalCheckPassed || !dataValidationPassed) {
+            
+            System.out.println("Cannot display edited form: Required checks have not been passed.");
+            
+            return;
+        
+        }
         
         //Making sure valid edits were done by the Reviewer.
         if (updatedForm != null && !updatedForm.isEmpty()) {
@@ -250,8 +306,20 @@ public class ReviewController {
      * This method prints a message to confirm that the review is updated and finalized.
      */
     public void updateData() {
+
+        //boolean checks
+        if (!supplementalCheckPassed || !dataValidationPassed) {
+            
+            System.out.println("Cannot update data: Required checks have not been passed.");
+            
+            return;
+        
+        }
         
         System.out.println("Review has been finalized and Workflow table is updated with edited form for Immigrant:" + immigrantNameLabel.getText() + " from the Requester:" + citizenNameLabel.getText());
+
+        //becomes true since update was successful, so we can now switch to approval screen 
+        updateSuccessful = true;
     
     }
 
@@ -298,6 +366,15 @@ public class ReviewController {
         // This is the Request Business Object passed to Approval Screen, so that the form fields will be pre-populated in the approval screen.
         // Would need to construct the object based on inputted form fields in this Review screen
         
+        //Disables user to go to approval screen due to invalid updates.
+        if (!updateSuccessful) {
+            
+            System.out.println("Cannot switch to Approval Screen: Update has not been successful.");
+            
+            return;
+        
+        }
+
         //This gets printed when the Reviewer clicks the go to approval button.
         System.out.println("Request is now sent to Approval");
 
