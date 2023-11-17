@@ -13,9 +13,26 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label text="Example text field:" />
-    <TextField fx:id="exampleTextField" promptText="This is example text field" />
 
-    <Button text="Go to review" onAction="#switchToReviewScreen" />
-    <Button text="Print example text field to terminal" onAction="#printExampleTextField" />
+    <Label fx:id="errorMessageLabel" textFill="red" style="-fx-font-size: 18pt;"/>
+
+    <Label text="Citizen Name:" />
+    <TextField fx:id="citizenNameField" promptText="Enter Citizen Name" />
+
+    <Label text="Citizen ID:" />
+    <TextField fx:id="citizenIDField" promptText="Enter Citizen ID" />
+
+    <Label text="Immigrant Name:" />
+    <TextField fx:id="immigrantNameField" promptText="Enter Immigrant Name" />
+
+    <Label text="Immigrant ID:" />
+    <TextField fx:id="immigrantIDField" promptText="Enter Immigrant ID" />
+
+    <Label text="Form ID:" />
+    <TextField fx:id="formIDField" promptText="Enter Form ID" />
+
+    <Label text="Form Description:" />
+    <TextField fx:id="formDescriptionField" promptText="Enter Form Description" />
+
+    <Button text="Create New Request (Go to review)" onAction="#switchToReviewScreen" />
 </VBox>

@@ -7,17 +7,65 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<!-- This is a comment in an FXML file -->
+<!-- This is how the design and layout for the Review Screen is implemented-->
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.javafxdemo.ReviewController">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafxdemo.ReviewController"
+      alignment="CENTER" spacing="10.0">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label text="Example text field:" />
-    <TextField fx:id="exampleTextField" promptText="This is example text field" />
-    <Button text="Print example text field to terminal" onAction="#printExampleTextField" />
 
-    <Button text="Go back to data entry" onAction="#switchToDataEntryScreen" />
-    <Button text="Go to approval" onAction="#switchToApprovalScreen" />
+    <!-- Review Request Information that is using the inputted values from the data-entry process -->
+    <HBox alignment="CENTER_LEFT" spacing="5">
+        <Label text="Review Request from:" />
+        <Label fx:id="citizenNameLabel" /> <!-- citizen name -->
+        <Label text=", " />
+        <Label fx:id="citizenIDLabel" /> <!-- citizen ID -->
+    </HBox>
 
+    <!-- The Reviewer will type in their ID number in this box -->
+    <HBox spacing="5">
+        <Label text="Reviewer ID:" />
+        <TextField fx:id="reviewerIDField" promptText="Enter Reviewer ID" />
+    </HBox>
+
+    <!-- This is the button for the supplemental checks to be done -->
+    <Button text="Supplemental Checks" onAction="#performSupplementalChecks" />
+
+    <!-- This is the button for displaying the current form data in user's terminal -->
+    <Button text="Display Current Form Data" onAction="#displayCurrentFormData" />
+
+    <!-- This is the title for the Current Form Data Section -->
+    <Label text="The following are the current form details before editing" style="-fx-font-weight: bold;" />
+
+    <!-- Under the title, all labels will be shown on screen (This info should match info printed in terminal). -->
+    <VBox spacing="2">
+        <Label text="Deceased person name:" />
+        <Label fx:id="immigrantNameLabel" />
+        <Label text="Deceased immigrant’s ID:" />
+        <Label fx:id="immigrantIDLabel" />
+        <Label text="Deceased immigrant’s Form ID:" />
+        <Label fx:id="formIDLabel" />
+        <Label text="Form Description:" />
+        <Label fx:id="formDescriptionLabel" />
+    </VBox>
+
+    <!-- This is the title for Edits Section that is meant for the Reviewer  -->
+    <Label text="Edits needed by Reviewer:" style="-fx-font-weight: bold;" />
+
+    <!-- These are text fields where the Reviewer adds their edits -->
+    <TextField fx:id="birthCountryField" promptText="Birth Country" />
+    <TextField fx:id="dateOfBirthField" promptText="Date of Birth" />
+    <TextField fx:id="dateOfDeathField" promptText="Date of Death" />
+
+    <!-- These are all the buttons in the Review screen that must be pressed in order -->
+    <VBox spacing="5"> <!-- Adjusted spacing to reduce vertical space -->
+        <Button text="Save Edits" onAction="#saveEdits" />
+        <Button text="Validate Data" onAction="#validateData" />
+        <Button text="Display Edited Form" onAction="#displayEditedForm" />
+        <Button text="Update" onAction="#updateData" />
+        <Button text="Go to Approval" onAction="#switchToApprovalScreen" />
+        <Button text="Go Back to Data Entry" onAction="#switchToDataEntryScreen" />
+    </VBox>
 </VBox>
