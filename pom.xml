@@ -109,9 +109,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version> <!-- Use the appropriate version -->
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include> <!-- Specify the pattern for your test classes -->
-                    </includes>
+                    <argLine>
+                        --add-opens com.example.javafxdemo/com.example.javafxdemo=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
         </plugins>
