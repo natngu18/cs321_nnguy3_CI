@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmailServiceTest {
-
-
     // these emails should be valid
     @Test
     public void testValidEmails() {
