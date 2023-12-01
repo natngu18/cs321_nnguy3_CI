@@ -42,6 +42,9 @@ public class EmailService {
 
 
     public boolean sendEmail(String toEmail, String subject, String content) {
+        if (!isValidEmail(toEmail)) {
+            return false;
+        }
         try {
             MimeMessage message = new MimeMessage(session);
             // Set from email
