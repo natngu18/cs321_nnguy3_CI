@@ -41,12 +41,13 @@ public class WorkflowItem {
                 loader.setControllerFactory(param -> new ApprovalController(req));
             } else if (step.equalsIgnoreCase("review")) {
                 loader.setControllerFactory(param -> new ReviewController(req));
-            } else {
+            } else if(step.equalsIgnoreCase("data-entry")){
                 loader.setControllerFactory(param -> new DataEntryController(req));
+            } else {
+                throw new IllegalStateException("Invalid step provided in GeneaologyRequest object.");
             }
 
             Parent newView = loader.load();
-
             Scene scene = new Scene(newView, 720, 720);
             Stage stage = new Stage();
             stage.setScene(scene);

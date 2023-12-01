@@ -66,6 +66,12 @@
         <Label fx:id="dateOfDeathField"  />
     </HBox>
 
+    <HBox spacing="10">
+        <Label text="Recipient Email :" />
+        <TextField fx:id="recipientEmail" promptText="Enter Citizen Name" />
+        <Label fx:id="recipientErrorLabel"/>
+    </HBox>
+
 
 
 

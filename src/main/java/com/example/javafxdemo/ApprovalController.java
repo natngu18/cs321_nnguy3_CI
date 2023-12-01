@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import java.io.IOException;
 
 public class ApprovalController {
+    @FXML private Label recipientErrorLabel;
+    @FXML private TextField recipientEmail;
     // Form Fields
     // Use Labels so approval screen can not edit.
     @FXML private Label citizenNameLabel;
@@ -41,6 +43,7 @@ public class ApprovalController {
 
     // initialize() function is automatically called upon creation of controller.
     public void initialize() {
+        recipientEmail.setText("");
         if (request != null) {
             citizenNameLabel.setText(request.getCitizenName());
             citizenIDLabel.setText(String.valueOf(request.getCitizenId()));
@@ -56,47 +59,43 @@ public class ApprovalController {
 
     }
 
-    public void submitButtonAction(ActionEvent actionEvent) throws IOException {
-        // TODO: Send email of requested forms..
-        request.sendEmail();
 
-        // Display confirmation alert.
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Your request was successful.");
-        alert.setHeaderText(null);
-        alert.setContentText("Submit successful!");
-        alert.showAndWait();
+
+    public void submitButtonAction(ActionEvent actionEvent) throws IOException {
+        // Then, we can send email with business object sendEmail function.
+        String toEmail = recipientEmail.getText();
+        if (!EmailService.isValidEmail(toEmail)) {
+            // Invalid email format - show error message
+            recipientErrorLabel.setText("Invalid email format.");
+            return;
+        }
+
+        // remove error message if it exists.
+        recipientErrorLabel.setText("");
+        boolean emailSuccess = request.sendEmail(toEmail, "Geneaology Request", "hello");
+        // Display confirmation alert if email succesful.
+
+        // The sendEmail functoin can return true or false, we need to display notification accordingly.
+        if (emailSuccess) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Submit succesful!");
+            alert.setHeaderText(null);
+            alert.setContentText("Email has been successfully sent to " + toEmail);
+            alert.showAndWait();
+        }
+
+        else {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Something went wrong!");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Something went wrong in the attempt to send to " + toEmail);
+            errorAlert.showAndWait();
+        }
+
     }
 
     public void cancelButtonAction(ActionEvent actionEvent) throws IOException {
         WorkflowItem workflowItem = new WorkflowItem("review", this.request);
         workflowItem.loadNextScreen(actionEvent);
-//        WorkflowItem.loadFXML(actionEvent, "review", this.request);
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("review.fxml"));
-//        Parent reviewView = loader.load();
-//
-//        // TODO: Pass data back to review screen
-//
-//        // new scene for Review screen
-//        Scene secondScene = new Scene(reviewView, 720, 720);
-//        // Get the stage from the current button
-//        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//        // Change title
-//        currentStage.setTitle("Review");
-//        // Set the new scene
-//        currentStage.setScene(secondScene);
     }
-//    GeneaologyRequest passedRequest = new GeneaologyRequest(
-//            citizenNameLabel.getText(),
-//            Integer.parseInt(citizenIDLabel.getText()),
-//            immigrantNameLabel.getText(),
-//            Integer.parseInt(immigrantIDLabel.getText()),
-//            Integer.parseInt(formIDLabel.getText()),
-//            formDescriptionLabel.getText(),
-//            Integer.parseInt(reviewerIDField.getText()),
-//            birthCountryField.getText(),
-//            dateOfBirthField.getText(),
-//            dateOfDeathField.getText()
-//    );
 }

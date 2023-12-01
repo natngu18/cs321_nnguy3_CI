@@ -122,21 +122,15 @@ public class GeneaologyRequest {
     public GeneaologyRequest() {
     }
 
-    public void submitRequest() {
-        // this.status = "Submitted";
+
+    public boolean sendEmail(String toEmail, String subject, String content) {
+        EmailService sender = new EmailService("smtp.gmail.com", "587");
+        return sender.sendEmail(toEmail, subject, content);
     }
 
-    public void sendEmail() {
-
-    }
-    public void cancelRequest() {
-        // this.status = "Canceled";
-        // send back to reviewer
-    }
-
-//    // Used to access database to retrieve forms with matching ids.
-    public List<Form> findFormsByIds(List<Integer> listOfFormIds) {
-        return List.of(new Form(1, "test", "test"));
+    // Used to access database to retrieve forms with matching ids.
+    public Form findFormsById(int id) {
+        return new Form(1, "test", "test");
     }
 
     // Used to access database to retrieve immigrant with matching id.
